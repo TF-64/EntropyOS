@@ -22,4 +22,4 @@ cdrom:
 
 kernel:
 	$(QEMU) -kernel $(BUILD)/$(NAME).bin
-	d
+
