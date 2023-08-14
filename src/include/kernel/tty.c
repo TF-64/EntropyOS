@@ -3,9 +3,8 @@
 #include <stdint.h>
 #include <string.h>
  
-#include <kernel/tty.h>
- 
-#include "vga.h"
+#include <kernel/tty.h> 
+#include <kernel/vga.h>
  
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
@@ -39,17 +38,17 @@ void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y) {
 }
  
 void terminal_scroll(int line) {
-	int loop;
-	char c;
+	long unsigned int* loop;
  
-	for(loop = line * (VGA_WIDTH * 2) + 0xB8000; loop < VGA_WIDTH * 2; loop++) {
-		c = *loop;
-		*(loop - (VGA_WIDTH * 2)) = c;
+	for(*loop = line * (VGA_WIDTH * 2) + 0xB8000; *loop < VGA_WIDTH * 2; loop++) {
+		//c = *loop;
+		*(loop - (VGA_WIDTH * 2)) = *loop;
+       // (loop - (VGA_WIDTH*2)) = *loop;
 	}
 }
  
 void terminal_delete_last_line() {
-	int x, *ptr;
+	long unsigned int x, *ptr;
  
 	for(x = 0; x < VGA_WIDTH * 2; x++) {
 		ptr = 0xB8000 + (VGA_WIDTH * 2) * (VGA_HEIGHT - 1) + x;
@@ -58,7 +57,7 @@ void terminal_delete_last_line() {
 }
  
 void terminal_putchar(char c) {
-	int line;
+	long unsigned int line;
 	unsigned char uc = c;
  
 	terminal_putentryat(uc, terminal_color, terminal_column, terminal_row);
