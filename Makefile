@@ -31,8 +31,8 @@ NAME=Entropy
 
 all:
 	$(ASM) $(SRC)/kernel/arch/boot.s -o $(BUILD)/boot.o
-	$(GCC) -c $(SRC)/kernel/kernel/kernel.c -o $(BUILD)/kernel.o -I$(INCLUDE)   -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	$(GCC) -T $(SRC)/kernel/arch/linker.ld -o $(BUILD)/$(NAME).bin -ffreestanding -O2 -nostdlib $(BUILD)/boot.o $(BUILD)/kernel.o -lgcc
+	$(GCC) -c $(SRC)/kernel/kernel/kernel.c -o $(BUILD)/kernel.o --sysroot=$(SYSROOT) --no-sysroot-suffix  -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	$(GCC) -T $(SRC)/kernel/arch/linker.ld -o $(BUILD)/$(NAME).bin  -ffreestanding -O2 -nostdlib $(BUILD)/boot.o $(BUILD)/kernel.o -lgcc
 	
 
 
