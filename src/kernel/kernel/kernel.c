@@ -3,11 +3,22 @@
 #include <stdio.h>
 
 
+void kernel_init()
+{
+        terminal_initialize();
+}
+
+
+
+
+
+
+
 void kernel_main(void) 
 {
-	terminal_initialize();
+        kernel_init();
 
-        printf("Hello world");
 
+        terminal_writestring("Hello world");
 
 }
