@@ -3,7 +3,8 @@
 
 
 
-void kernel_main(void) {
-	terminal_initialize();
-	terminal_writestring("Hello, Entropy!");  
+void kernel_main(void) 
+{
+		terminal_initialize();
+		terminal_writestring("Hello, Entropy!");  
 }
