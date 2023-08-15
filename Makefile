@@ -2,8 +2,6 @@
 SRC=src
 BUILD=build
 BOOT=boot
-
-SYSROOT=src/sysroot
 INCLUDE=src/include
 
 
@@ -30,8 +28,8 @@ NAME=Entropy
 
 all:
 	$(ASM) $(SRC)/kernel/arch/boot.s -o $(BUILD)/boot.o
-	$(GCC) -c $(SRC)/kernel/kernel/kernel.c -o $(BUILD)/kernel.o -I$(INCLUDE) --no-sysroot-suffix  -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-	$(PYTHON) auto_compiler.py
+#	$(GCC) -c $(SRC)/kernel/kernel/kernel.c -o $(BUILD)/kernel.o -I$(INCLUDE) --no-sysroot-suffix  -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+	$(PYTHON) auto_compiler.py $(SRC)
 	$(PYTHON) auto_linker.py $(NAME)
 
 
@@ -51,5 +49,10 @@ clear:
 	rm -rf build
 	mkdir build
 	rm $(NAME).iso
+
+	
+
+
+
 
 
