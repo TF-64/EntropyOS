@@ -42,11 +42,10 @@ void terminal_putentryat(unsigned char c, uint8_t color, size_t x, size_t y)
  
 void terminal_scroll(int line) 
 {
-	int loop;
-	char c;
- 
+	int* loop;
+        char c;
 	for(loop = line * (VGA_WIDTH * 2) + 0xB8000; loop < VGA_WIDTH * 2; loop++) {
-		c = *loop;
+                c = *loop;
 		*(loop - (VGA_WIDTH * 2)) = c;
 	}
 }
