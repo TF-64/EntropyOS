@@ -8,7 +8,7 @@ char *convert(unsigned int num, int base);
 
 
 
-void printf(char* format,...) 
+void printf(char *format, ...) 
 { 
         char *traverse; 
         unsigned int i; 
@@ -22,6 +22,7 @@ void printf(char* format,...)
                         putchar(*traverse);
                         traverse++; 
                 } 
+                                
 
                 traverse++; 
                 
@@ -33,7 +34,7 @@ void printf(char* format,...)
 
                 case 'd':
                         i = va_arg(arg,int);
-                        if(i<0) { 
+                        if(i < 0) { 
                                 i = -i;
                                 putchar('-'); 
                         } 
