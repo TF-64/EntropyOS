@@ -11,7 +11,7 @@ def compile_all(compile_path, build_path):
     for file in listdir(compile_path):
         if isfile(join(compile_path, file)):
            if (file[-2] + file[-1]) == '.c':
-               system(f'i686-elf-gcc -c {join(compile_path, file)} -o {build_path}/{file[0:len(file)-2]}.o -Isrc/include -lgcc -ffreestanding -O2 -nostdlib')
+               system(f'i686-elf-gcc -c {join(compile_path, file)} -o {build_path}/{file[0:len(file)-2]}.o -Isrc/include -lgcc -ffreestanding -O2 -nostdlib `jemalloc-config --libdir`/libjemalloc.a -lstdc++ -lpthread ')
         else:
             compile_all(compile_path + '/' + file, build_path)
 
