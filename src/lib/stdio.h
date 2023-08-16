@@ -8,11 +8,25 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+
+
+
+
+void printf(char *format, ...);
+void putchar(int);
+void puts(const char*);
  
-int printf(const char* __restrict, ...);
-int putchar(int);
-int puts(const char*);
- 
+
+
+
+
+
+
+
+
+
+
 #ifdef __cplusplus
 }
 #endif

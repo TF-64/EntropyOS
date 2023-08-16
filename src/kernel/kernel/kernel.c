@@ -22,8 +22,7 @@ void kernel_main(void)
         int n = 1234;
         itoa(n, str);
 
-        terminal_writestring(str);
-        
+        printf("This is a string -> %s", str); 
         
         
         
