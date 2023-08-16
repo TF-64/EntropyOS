@@ -1,6 +1,6 @@
 #include <stdio.h>
  
-#include <kernel/tty.h>
+#include <console/tty.h>
  
 void putchar(int ic)
 {

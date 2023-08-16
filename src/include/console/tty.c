@@ -3,8 +3,8 @@
 #include <stdint.h>
 #include <string.h>
  
-#include <kernel/tty.h> 
-#include <kernel/vga.h>
+#include <console/tty.h> 
+#include <console/vga.h>
  
 static const size_t VGA_WIDTH = 80;
 static const size_t VGA_HEIGHT = 25;
@@ -15,7 +15,7 @@ static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
  
-void terminal_initialize(void) 
+void terminal_init(void) 
 {
 	terminal_row = 0;
 	terminal_column = 0;
