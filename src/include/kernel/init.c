@@ -5,7 +5,6 @@
 void kernel_init()
 {
         terminal_init();
-        terminal_writestring("kernel init ");        
 
 }
 
