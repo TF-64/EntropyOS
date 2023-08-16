@@ -18,9 +18,11 @@ void kernel_main(void)
         kernel_init();
         
         
-        unsigned char str[4] = "";
+        char str[4];
+        int n = 1234;
+        itoa(n, str);
 
-        terminal_writestring(itoa(5, str, 0));
+        terminal_writestring(str);
         
         
         

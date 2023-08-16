@@ -18,7 +18,6 @@ void* memmove(void*, const void*, size_t);
 void* memset(void*, int, size_t);
 size_t strlen(const char*);
  
-int itoa(int num, unsigned char* str, int len, int base);
 
 
 

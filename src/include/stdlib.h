@@ -11,8 +11,7 @@ __attribute__((__noreturn__))
 
 
 void abort(void);
-char *itoa(int i);
-
+void itoa(int n, char s[]);
 
 
 
