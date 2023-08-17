@@ -35,12 +35,18 @@ void printf(char *format, ...)
                 while(*traverse != '%') { 
                         if(!slash_processing(traverse))
                                 putchar(*traverse);
+                        else if(*(traverse+1) == '\0') 
+                                break;
 
                         traverse++;
                 }
                                 
 
-                traverse++; 
+                traverse++;
+
+                if(*traverse == '\0') {
+                        break;
+                }
                 
                 if(*(traverse-1) == '%')
                         switch(*traverse) { 

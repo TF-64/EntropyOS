@@ -92,8 +92,10 @@ void terminal_writestring(const char* data)
 
 void terminal_nextline()
 {
-        terminal_column = 0;
+        terminal_column = -1;
         terminal_row++;
+
+        terminal_putchar(' ');
 }
 
 
