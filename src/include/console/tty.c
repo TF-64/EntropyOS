@@ -88,3 +88,14 @@ void terminal_writestring(const char* data)
 {
 	terminal_write(data, strlen(data));
 }
+
+
+void terminal_nextline()
+{
+        terminal_column = 0;
+        terminal_row++;
+}
+
+
+
+

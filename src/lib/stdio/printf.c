@@ -1,11 +1,25 @@
 #include <stdio.h>
 #include <stdarg.h>
-
-
+#include <console/tty.h>
+#include <stdbool.h>
 
 
 char *convert(unsigned int num, int base); 
 
+bool slash_processing(char *traverse)
+{
+        switch(*traverse) {
+        
+        case '\n':
+                //traverse++;
+                terminal_nextline();
+                return true;
+
+        }
+
+
+        return false;
+}
 
 
 void printf(char *format, ...) 
@@ -18,47 +32,69 @@ void printf(char *format, ...)
         va_start(arg, format); 
 
         for(traverse = format; *traverse != '\0'; traverse++)  { 
-                while( *traverse != '%') { 
+                while(*traverse != '%' && !slash_processing(traverse)) { 
                         putchar(*traverse);
-                        traverse++; 
-                } 
+                        traverse++;
+                }
                                 
 
                 traverse++; 
                 
-                switch(*traverse) { 
-                case 'c':
-                        i = va_arg(arg,int);
-                        putchar(i);
-                        break; 
+                if(*(traverse-1) == '%')
+                        switch(*traverse) { 
+                        case 'c':
+                                i = va_arg(arg,int);
+                                putchar(i);
+                                break; 
 
-                case 'd':
-                        i = va_arg(arg,int);
-                        if(i < 0) { 
-                                i = -i;
-                                putchar('-'); 
-                        } 
-                        puts(convert(i,10));
-                        break; 
+                        case 'd':
+                                i = va_arg(arg,int);
+                                if(i < 0) { 
+                                        i = -i;
+                                        putchar('-'); 
+                                } 
+                                puts(convert(i,10));
+                                break; 
 
-                case 'o':
-                        i = va_arg(arg,unsigned int);
-                        puts(convert(i,8));
-                        break; 
+                        case 'o':
+                                i = va_arg(arg,unsigned int);
+                                puts(convert(i,8));
+                                break; 
 
-                case 's':
-                        s = va_arg(arg,char *);
-                        puts(s); 
-                        break; 
+                        case 's':
+                                s = va_arg(arg,char *);
+                                puts(s); 
+                                break; 
 
-                case 'x':
-                        i = va_arg(arg,unsigned int);
-                        puts(convert(i,16));
-                        break; 
-                }   
+                        case 'x':
+                                i = va_arg(arg,unsigned int);
+                                puts(convert(i,16));
+                                break; 
+                        }
+
+                if(*(traverse-1) == '\\')
+                        terminal_writestring("CAUGHT!!!");
+
+
+                        //switch(*traverse) {
+                        
+                        //case 'n':
+                          //      terminal_nextline();
+
+                            //    break;
+
+
+
+
+
+
+
+                        //}
+
+
         } 
 
-    va_end(arg); 
+                va_end(arg); 
 } 
 
 char *convert(unsigned int num, int base) 
