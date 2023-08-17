@@ -15,8 +15,9 @@ void kernel_main(void)
         int n = 1234;
         itoa(n, str);
 
-        printf("This is a string -> %s \n", str); 
-        printf("And this is an integer -> %d", n);
+        printf("This is a string -> %s", str);
+        
+        printf("\nAnd this is an integer -> %d", n);
         
         
 

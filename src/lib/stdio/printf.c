@@ -32,8 +32,10 @@ void printf(char *format, ...)
         va_start(arg, format); 
 
         for(traverse = format; *traverse != '\0'; traverse++)  { 
-                while(*traverse != '%' && !slash_processing(traverse)) { 
-                        putchar(*traverse);
+                while(*traverse != '%') { 
+                        if(!slash_processing(traverse))
+                                putchar(*traverse);
+
                         traverse++;
                 }
                                 
