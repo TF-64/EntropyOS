@@ -5,8 +5,6 @@
 
 
 
-
-
 void kernel_main(void) 
 {
         kernel_init();
@@ -15,10 +13,10 @@ void kernel_main(void)
         int n = 1234;
         itoa(n, str);
 
-        printf("This is a string -> %s\n", str);
+        printf("\' \" \? \\"); 
         
-        printf("And this is an integer -> %d", n);
-        
+
+
         
 
 

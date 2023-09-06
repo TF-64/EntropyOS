@@ -6,19 +6,57 @@
 
 char *convert(unsigned int num, int base); 
 
-bool slash_processing(char *traverse)
+void slash_processing(char *traverse)
 {
+
+        /*
+                
+        TODO:   \r (carriage return)
+                \t (horizontal tab)
+                \v (vertical tab)
+                \f (formfeed page break)
+                        
+                \a (beep sound; needs a sound system -_- )
+                        
+
+        */
+
+
+
         switch(*traverse) {
         
         case '\n':
-                //traverse++;
-                terminal_nextline();
-                return true;
+                terminal_nextrow();
+                break;
 
+        case '\b':
+                terminal_addcol(-1);
+                putchar(' ');
+                terminal_addcol(-1);
+                break; 
+        
+
+
+
+
+
+
+
+
+
+        default:
+                putchar(*traverse);
         }
+        
+        
 
 
-        return false;
+
+
+
+
+
+
 }
 
 
@@ -32,10 +70,13 @@ void printf(char *format, ...)
         va_start(arg, format); 
 
         for(traverse = format; *traverse != '\0'; traverse++)  { 
-                while(*traverse != '%') { 
-                        if(!slash_processing(traverse))
-                                putchar(*traverse);
-                        else if(*(traverse+1) == '\0') 
+                while(*traverse != '%') {
+                        
+                        //printing & processing slash symbols (e.g. \n, \b)
+                        
+                        slash_processing(traverse);
+
+                        if(*(traverse+1) == '\0') 
                                 break;
 
                         traverse++;
@@ -44,66 +85,46 @@ void printf(char *format, ...)
 
                 traverse++;
 
-                if(*traverse == '\0') {
+                if(*traverse == '\0')
                         break;
-                }
                 
-                if(*(traverse-1) == '%')
-                        switch(*traverse) { 
-                        case 'c':
-                                i = va_arg(arg,int);
-                                putchar(i);
-                                break; 
+                  
+                switch(*traverse) { 
+                case 'c':
+                        i = va_arg(arg,int);
+                        putchar(i);
+                        break; 
 
-                        case 'd':
-                                i = va_arg(arg,int);
-                                if(i < 0) { 
-                                        i = -i;
-                                        putchar('-'); 
-                                } 
-                                puts(convert(i,10));
-                                break; 
+                case 'd':
+                        i = va_arg(arg,int);
+                        if(i < 0) { 
+                                i = -i;
+                                putchar('-'); 
+                        } 
+                        puts(convert(i,10));
+                        break; 
 
-                        case 'o':
-                                i = va_arg(arg,unsigned int);
-                                puts(convert(i,8));
-                                break; 
+                case 'o':
+                        i = va_arg(arg,unsigned int);
+                        puts(convert(i,8));
+                        break; 
 
-                        case 's':
-                                s = va_arg(arg,char *);
-                                puts(s); 
-                                break; 
+                case 's':
+                        s = va_arg(arg,char *);
+                        puts(s); 
+                        break; 
 
-                        case 'x':
-                                i = va_arg(arg,unsigned int);
-                                puts(convert(i,16));
-                                break; 
-                        }
+                case 'x':
+                        i = va_arg(arg,unsigned int);
+                        puts(convert(i,16));
+                        break; 
+                }
 
-                if(*(traverse-1) == '\\')
-                        terminal_writestring("CAUGHT!!!");
-
-
-                        //switch(*traverse) {
-                        
-                        //case 'n':
-                          //      terminal_nextline();
-
-                            //    break;
-
-
-
-
-
-
-
-                        //}
-
-
-        } 
-
+                //if(*(traverse-1) == '\\')
+                //        puts("CAUGHT!!!");
                 va_end(arg); 
-} 
+        } 
+}
 
 char *convert(unsigned int num, int base) 
 { 

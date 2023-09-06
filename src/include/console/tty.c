@@ -59,7 +59,7 @@ void terminal_delete_last_line()
 		*ptr = 0;
 	}
 }
- 
+
 void terminal_putchar(char c) 
 {
 	int line;
@@ -89,14 +89,31 @@ void terminal_writestring(const char* data)
 	terminal_write(data, strlen(data));
 }
 
+void terminal_nextrow()
+{
+        terminal_addrow(1);
+}
 
-void terminal_nextline()
+void terminal_nextcol()
+{
+        terminal_addcol(1);
+}
+
+void terminal_addrow(int n)
 {
         terminal_column = -1;
-        terminal_row++;
+        terminal_row += n;
 
         terminal_putchar(' ');
 }
+
+void terminal_addcol(int n)
+{
+        terminal_column += n;        
+}
+
+
+
 
 
 

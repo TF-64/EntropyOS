@@ -35,6 +35,10 @@ all:
 
 # RUNNING
 
+
+
+
+
 isorun:
 	cp $(BUILD)/$(NAME).bin $(BOOT)/$(NAME).bin
 	cp grub.cfg $(BOOT)/grub/grub.cfg
