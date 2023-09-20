@@ -12,8 +12,6 @@ void slash_processing(char *traverse)
         /*
                 
         TODO:   \r (carriage return)
-                \t (horizontal tab)
-                \v (vertical tab)
                 \f (formfeed page break)
                         
                 \a (beep sound; needs a sound system -_- )
@@ -35,9 +33,21 @@ void slash_processing(char *traverse)
                 terminal_addcol(-1);
                 break; 
         
+        case '\t':
+                puts("    ");
+                break;
 
-
-
+        case '\v':
+                terminal_addrow_raw(1);
+                break;
+        
+        case '\r':
+                
+                for(int i = 0; i < terminal_getcolumn(); i++) {
+                        printf("\b");
+                }
+                        
+                break;
 
 
 
@@ -48,10 +58,6 @@ void slash_processing(char *traverse)
                 putchar(*traverse);
         }
         
-        
-
-
-
 
 
 

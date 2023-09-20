@@ -14,7 +14,12 @@ static size_t terminal_row;
 static size_t terminal_column;
 static uint8_t terminal_color;
 static uint16_t* terminal_buffer;
- 
+
+
+
+
+
+
 void terminal_init(void) 
 {
 	terminal_row = 0;
@@ -44,21 +49,41 @@ void terminal_scroll(int line)
 {
 	int* loop;
         char c;
-	for(loop = line * (VGA_WIDTH * 2) + 0xB8000; loop < VGA_WIDTH * 2; loop++) {
+	for(loop = line * (VGA_WIDTH * 2) + VGA_MEMORY; loop < VGA_WIDTH * 2; loop++) {
                 c = *loop;
 		*(loop - (VGA_WIDTH * 2)) = c;
 	}
 }
- 
+
+
 void terminal_delete_last_line() 
 {
 	int x, *ptr;
  
 	for(x = 0; x < VGA_WIDTH * 2; x++) {
-		ptr = 0xB8000 + (VGA_WIDTH * 2) * (VGA_HEIGHT - 1) + x;
+		ptr = VGA_MEMORY + (VGA_WIDTH * 2) * (VGA_HEIGHT - 1) + x;
 		*ptr = 0;
 	}
 }
+
+
+
+
+int terminal_getrow()
+{
+        return terminal_row;
+}
+
+int terminal_getcolumn()
+{
+        return terminal_column;
+}
+
+
+
+
+
+
 
 void terminal_putchar(char c) 
 {
@@ -89,6 +114,13 @@ void terminal_writestring(const char* data)
 	terminal_write(data, strlen(data));
 }
 
+
+
+
+
+
+
+
 void terminal_nextrow()
 {
         terminal_addrow(1);
@@ -107,13 +139,16 @@ void terminal_addrow(int n)
         terminal_putchar(' ');
 }
 
+void terminal_addrow_raw(int n)
+{
+        terminal_row += n;
+}
+
+
 void terminal_addcol(int n)
 {
         terminal_column += n;        
 }
-
-
-
 
 
 

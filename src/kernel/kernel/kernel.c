@@ -13,7 +13,8 @@ void kernel_main(void)
         int n = 1234;
         itoa(n, str);
 
-        printf("\' \" \? \\"); 
+        printf("hello world\r");        
+        
         
 
 
